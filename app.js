@@ -5,8 +5,8 @@ const morganLogger = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const jobRoutes = require("./api/routes/jobs");
-const loginRoutes = require("./api/routes/login");
+const jobRoutes = require("./api/routes/jobs.routes");
+const loginRoutes = require("./api/routes/login.routes");
 
 mongoose.connect(process.env.MONGO_CONNECTION);
 

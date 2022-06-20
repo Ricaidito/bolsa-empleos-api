@@ -7,7 +7,6 @@ const Job = require("../models/job.model");
 router.get("/", (req, res) => {
   Job.find()
     .then(jobs => {
-      console.log(jobs);
       res.status(200).json(jobs);
     })
     .catch(err => {
@@ -21,7 +20,6 @@ router.get("/:jobId", (req, res) => {
   const id = req.params.jobId;
   Job.findById(id)
     .then(job => {
-      console.log(job);
       if (job) res.status(200).json(job);
       else res.status(404).json({ message: "Not found!" });
     })
@@ -41,7 +39,6 @@ router.post("/", (req, res) => {
   job
     .save()
     .then(result => {
-      console.log(result);
       res.status(201).json(result);
     })
     .catch(err => {
@@ -63,7 +60,6 @@ router.put("/:jobId", (req, res) => {
     }
   )
     .then(result => {
-      console.log(result);
       res.status(200).json(result);
     })
     .catch(err => {

@@ -1,7 +1,5 @@
 # Bolsa de empleos API
 
----
-
 ## Sobre el API
 
 Esta API fue creada para servir un SPA con capacidades para manejar bolsa de empleos y los diferentes tipos de usuarios que pueden entrar en la misma.

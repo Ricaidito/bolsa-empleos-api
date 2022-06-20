@@ -1,9 +1,9 @@
 const http = require("http");
 const app = require("./app");
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3030;
 const server = http.createServer(app);
 
 server.listen(port, () => {
-  console.log(`>>> API: http://localhost:${port} <<<`);
+  console.log(`Server listening on http://localhost:${port}`);
 });

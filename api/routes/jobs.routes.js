@@ -71,7 +71,7 @@ router.put("/:jobId", (req, res) => {
 // DELETE a job by ID
 router.delete("/:jobId", (req, res) => {
   const id = req.params.jobId;
-  Job.remove({ _id: id })
+  Job.deleteOne({ _id: id })
     .then(result => res.status(200).json(result))
     .catch(err => {
       console.log(err);

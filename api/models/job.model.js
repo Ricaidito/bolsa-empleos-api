@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const jobSchema = mongoose.Schema(
   {
     _id: mongoose.Schema.Types.ObjectId,
-    company: String,
-    type: String,
+    company: { type: String, required: true },
+    type: { type: String, required: true },
   },
   {
     versionKey: false,

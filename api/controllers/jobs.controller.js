@@ -1,0 +1,109 @@
+const mongoose = require("mongoose");
+const Job = require("../models/job.model");
+const fileHandler = require("../utils/file-handler");
+
+// Get all jobs
+const getAllJobs = (req, res) => {
+  Job.find()
+    .then(jobs => {
+      res.status(200).json(jobs);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+// Get a job by ID
+const getJobById = (req, res) => {
+  const id = req.params.jobId;
+  Job.findById(id)
+    .then(job => {
+      if (job) res.status(200).json(job);
+      else res.status(404).json({ message: "Not found!" });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+// Add a job
+const addJob = (req, res) => {
+  const job = new Job({
+    _id: new mongoose.Types.ObjectId(),
+    company: req.body.company,
+    type: req.body.type,
+    logo: req.file
+      ? `http://${req.get("host")}/images/${req.file.filename}`
+      : null,
+    jobUrl: req.body.jobUrl ? req.body.jobUrl : null,
+    position: req.body.position,
+    location: req.body.location,
+    category: req.body.category,
+    contactEmail: req.body.contactEmail,
+  });
+  job
+    .save()
+    .then(result => {
+      res.status(201).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+// Update a job by ID
+const updateJob = (req, res) => {
+  const id = req.params.jobId;
+  Job.updateOne(
+    { _id: id },
+    {
+      $set: {
+        company: req.body.company,
+        type: req.body.type,
+      },
+    }
+  )
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+// Delete a job by ID
+const deleteJob = (req, res) => {
+  const id = req.params.jobId;
+  Job.deleteOne({ _id: id })
+    .then(result => res.status(200).json(result))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+// Delete all jobs
+const deleteAllJobs = (req, res) => {
+  Job.deleteMany({})
+    .then(result => {
+      fileHandler.deleteImages();
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+};
+
+module.exports = {
+  getAllJobs: getAllJobs,
+  getJobById: getJobById,
+  addJob: addJob,
+  updateJob: updateJob,
+  deleteJob: deleteJob,
+  deleteAllJobs: deleteAllJobs,
+};

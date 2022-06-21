@@ -129,4 +129,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Nodemon env variables
 nodemon.json
+
+# Images
+images

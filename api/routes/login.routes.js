@@ -1,16 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const loginController = require("../controllers/login.controller");
 
-// POST (do) login
-router.post("/", (req, res) => {
-  const login = {
-    email: req.body.email,
-    password: req.body.password,
-  };
-  res.status(201).json({
-    message: "POST /login",
-    newLogin: login,
-  });
-});
+router.post("/", loginController.doLogin);
 
 module.exports = router;

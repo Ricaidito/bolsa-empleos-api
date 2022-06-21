@@ -6,4 +6,5 @@ const server = http.createServer(app);
 
 server.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);
+  console.log("- Check the README.md to find information about the routes");
 });

@@ -5,6 +5,7 @@ const jobSchema = mongoose.Schema(
     _id: mongoose.Schema.Types.ObjectId,
     company: { type: String, required: true },
     type: { type: String, required: true },
+    position: { type: String, required: true },
   },
   {
     versionKey: false,

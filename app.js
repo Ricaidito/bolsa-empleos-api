@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 
-const fileHandler = require("./api/utils/file-handler");
-
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -12,8 +10,6 @@ const errorHandlers = require("./api/utils/error-handler");
 
 const jobRoutes = require("./api/routes/jobs.routes");
 const loginRoutes = require("./api/routes/login.routes");
-
-fileHandler.imagesPath();
 
 // Database connection
 mongoose.connect(process.env.MONGO_CONNECTION);

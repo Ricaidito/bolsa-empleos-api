@@ -133,4 +133,5 @@ dist
 nodemon.json
 
 # Images
-images
+images/*.jpg
+images/*.jpeg

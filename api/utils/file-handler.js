@@ -1,16 +1,13 @@
 const fs = require("fs-extra");
 
-const handleImagePath = () => {
-  if (!fs.existsSync("./images")) {
-    fs.mkdirSync("./images");
-  }
-};
+const deleteAllImages = () => fs.emptyDir("./images");
 
-const deleteAllImages = () => {
-  fs.emptyDirSync("./images");
+const deleteImage = imagePath => {
+  const fullPath = `../../images${imagePath.split("/")[1]}`;
+  return fs.remove(fullPath);
 };
 
 module.exports = {
-  imagesPath: handleImagePath,
   deleteImages: deleteAllImages,
+  deleteImage: deleteImage,
 };

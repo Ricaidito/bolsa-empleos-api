@@ -5,13 +5,8 @@ const fileHandler = require("../utils/file-handler");
 // Get all jobs
 const getAllJobs = (req, res) => {
   Job.find()
-    .then(jobs => {
-      res.status(200).json(jobs);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+    .then(jobs => res.status(200).json(jobs))
+    .catch(err => res.status(500).json({ error: err }));
 };
 
 // Get a job by ID
@@ -22,10 +17,7 @@ const getJobById = (req, res) => {
       if (job) res.status(200).json(job);
       else res.status(404).json({ message: "Not found!" });
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+    .catch(err => res.status(500).json({ error: err }));
 };
 
 // Add a job
@@ -45,13 +37,8 @@ const addJob = (req, res) => {
   });
   job
     .save()
-    .then(result => {
-      res.status(201).json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+    .then(result => res.status(201).json(result))
+    .catch(err => res.status(500).json({ error: err }));
 };
 
 // Update a job by ID
@@ -69,34 +56,28 @@ const updateJob = (req, res) => {
     .then(result => {
       res.status(200).json(result);
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+    .catch(err => res.status(500).json({ error: err }));
 };
 
 // Delete a job by ID
-const deleteJob = (req, res) => {
+const deleteJob = async (req, res) => {
   const id = req.params.jobId;
+  const jobToDelete = await Job.findById(id);
+  if (!jobToDelete) {
+    return res.status(404).json({ error: `There's no job with ${id} ID` });
+  }
   Job.deleteOne({ _id: id })
-    .then(result => res.status(200).json(result))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+    .then(() => fileHandler.deleteImage(jobToDelete.logo))
+    .then(() => res.status(200).json({ message: `Deteled job ${id}` }))
+    .catch(err => res.status(500).json({ error: err }));
 };
 
 // Delete all jobs
 const deleteAllJobs = (req, res) => {
   Job.deleteMany({})
-    .then(result => {
-      fileHandler.deleteImages();
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+    .then(() => fileHandler.deleteImages())
+    .then(() => res.status(200).json({ message: "Deleted all jobs" }))
+    .catch(err => res.status(500).json({ error: err }));
 };
 
 module.exports = {

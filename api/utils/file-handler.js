@@ -1,13 +1,24 @@
 const fs = require("fs-extra");
+const path = require("path");
+const gitKeepFile = ".gitkeep";
+const imagesPath = path.resolve("./images");
 
-const deleteAllImages = () => fs.emptyDir("./images");
+const deleteAllLogos = () =>
+  fs.readdir(imagesPath, (err, files) => {
+    if (err) throw err;
+    files.forEach(file => {
+      if (file !== gitKeepFile) {
+        fs.unlink(path.join(imagesPath, file));
+      }
+    });
+  });
 
-const deleteImage = imagePath => {
-  const fullPath = `../../images${imagePath.split("/")[1]}`;
-  return fs.remove(fullPath);
+const deleteLogo = logoLink => {
+  const fullLogoLinkDir = logoLink.split("/")[4];
+  fs.unlink(path.join(imagesPath, fullLogoLinkDir));
 };
 
 module.exports = {
-  deleteImages: deleteAllImages,
-  deleteImage: deleteImage,
+  deleteLogos: deleteAllLogos,
+  deleteLogo: deleteLogo,
 };

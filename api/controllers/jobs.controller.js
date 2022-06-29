@@ -50,6 +50,10 @@ const updateJob = (req, res) => {
       $set: {
         company: req.body.company,
         type: req.body.type,
+        position: req.body.position,
+        location: req.body.location,
+        category: req.body.category,
+        contactEmail: req.body.contactEmail,
       },
     }
   )
@@ -67,7 +71,7 @@ const deleteJob = async (req, res) => {
     return res.status(404).json({ error: `There's no job with ${id} ID` });
   }
   Job.deleteOne({ _id: id })
-    .then(() => fileHandler.deleteImage(jobToDelete.logo))
+    .then(() => fileHandler.deleteLogo(jobToDelete.logo))
     .then(() => res.status(200).json({ message: `Deteled job ${id}` }))
     .catch(err => res.status(500).json({ error: err }));
 };
@@ -75,7 +79,7 @@ const deleteJob = async (req, res) => {
 // Delete all jobs
 const deleteAllJobs = (req, res) => {
   Job.deleteMany({})
-    .then(() => fileHandler.deleteImages())
+    .then(() => fileHandler.deleteLogos())
     .then(() => res.status(200).json({ message: "Deleted all jobs" }))
     .catch(err => res.status(500).json({ error: err }));
 };

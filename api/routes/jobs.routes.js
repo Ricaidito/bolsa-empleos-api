@@ -9,19 +9,28 @@ const uploadHandler = multer({
   fileFilter: multerConfig.imgFilter,
 });
 
+// GET routes
 router.get("/", jobsController.getAllJobs);
 router.get("/:jobId", jobsController.getJobById);
 
+// POST routes
 router.post("/", uploadHandler.single("logo"), jobsController.addJob);
 
-router.put("/:jobId", jobsController.updateJob);
+// PUT routes
+router.put("/:jobId", jobsController.checkIfJobExist, jobsController.updateJob);
 router.put(
   "/logo/:jobId",
+  jobsController.checkIfJobExist,
   uploadHandler.single("logo"),
   jobsController.updateLogo
 );
 
-router.delete("/:jobId", jobsController.deleteJob);
+// Delete routes
+router.delete(
+  "/:jobId",
+  jobsController.checkIfJobExist,
+  jobsController.deleteJob
+);
 router.delete("/wipe/jobs", jobsController.deleteAllJobs);
 
 module.exports = router;

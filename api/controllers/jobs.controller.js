@@ -2,6 +2,15 @@ const mongoose = require("mongoose");
 const Job = require("../models/job.model");
 const fileHandler = require("../utils/file-handler");
 
+// Check if the job exists middleware
+const checkIfJobExist = async (req, res, next) => {
+  const id = req.params.jobId;
+  const job = await Job.findById(id);
+  if (!job)
+    return res.status(404).json({ error: `There's no job with ${id} id` });
+  next();
+};
+
 // Get all jobs
 const getAllJobs = (req, res) => {
   Job.find()
@@ -42,13 +51,8 @@ const addJob = (req, res) => {
 };
 
 // Update a job by ID
-const updateJob = async (req, res) => {
+const updateJob = (req, res) => {
   const id = req.params.jobId;
-  const jobToUpdate = await Job.findById(id);
-
-  if (!jobToUpdate)
-    return res.status(404).json({ error: `There's no job with ${id} id` });
-
   Job.updateOne(
     { _id: id },
     {
@@ -71,12 +75,7 @@ const updateJob = async (req, res) => {
 const updateLogo = async (req, res) => {
   const id = req.params.jobId;
   const jobToUpdate = await Job.findById(id);
-
-  if (!jobToUpdate)
-    return res.status(404).json({ error: `There's no job with ${id} id` });
-
   const oldLogoPath = jobToUpdate.logo;
-
   Job.updateOne(
     { _id: id },
     {
@@ -96,10 +95,6 @@ const updateLogo = async (req, res) => {
 const deleteJob = async (req, res) => {
   const id = req.params.jobId;
   const jobToDelete = await Job.findById(id);
-
-  if (!jobToDelete)
-    return res.status(404).json({ error: `There's no job with ${id} id` });
-
   Job.deleteOne({ _id: id })
     .then(() => fileHandler.deleteLogo(jobToDelete.logo))
     .then(() => res.status(200).json({ message: `Deleted job ${id}` }))
@@ -122,4 +117,5 @@ module.exports = {
   updateLogo: updateLogo,
   deleteJob: deleteJob,
   deleteAllJobs: deleteAllJobs,
+  checkIfJobExist: checkIfJobExist,
 };

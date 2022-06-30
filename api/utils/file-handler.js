@@ -14,8 +14,10 @@ const deleteAllLogos = () =>
   });
 
 const deleteLogo = logoLink => {
-  const fullLogoLinkDir = logoLink.split("/")[4];
-  fs.unlink(path.join(imagesPath, fullLogoLinkDir));
+  if (logoLink) {
+    const fullLogoLinkDir = logoLink.split("/")[4];
+    fs.unlink(path.join(imagesPath, fullLogoLinkDir));
+  }
 };
 
 module.exports = {

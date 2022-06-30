@@ -11,8 +11,16 @@ const uploadHandler = multer({
 
 router.get("/", jobsController.getAllJobs);
 router.get("/:jobId", jobsController.getJobById);
+
 router.post("/", uploadHandler.single("logo"), jobsController.addJob);
+
 router.put("/:jobId", jobsController.updateJob);
+router.put(
+  "/logo/:jobId",
+  uploadHandler.single("logo"),
+  jobsController.updateLogo
+);
+
 router.delete("/:jobId", jobsController.deleteJob);
 router.delete("/wipe/jobs", jobsController.deleteAllJobs);
 

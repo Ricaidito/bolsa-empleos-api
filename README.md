@@ -19,13 +19,13 @@ Nodemon también es utilizado para el hot-reload.
 
 ## Como ejecutar el servidor
 
-Para ejecutar el servidor basta con abrir una terminal en la raíz del proyecto y ejecutar el siguiente comando para instalar las dependecias.
+Para ejecutar el servidor basta con abrir una terminal en la raíz del proyecto y ejecutar el siguiente comando para instalar las dependencias.
 
 `npm install`
 
 Una vez descargadas las dependencias asegúrese de tener el correspondiente archivo `nodemon.json` con las variables de entorno para la conexión a la base de datos.
 
-Por último ejecute el siguiente comando para inicar el servidor.
+Por último ejecute el siguiente comando para iniciar el servidor.
 
 `npm start`
 
@@ -50,6 +50,10 @@ Por defecto el servidor escucha a las peticiones en `http://localhost:3000/` a m
 **- Modificar un trabajo**
 
 `PUT http://localhost:3000/jobs/{id}`
+
+**- Cambiar el logo de un trabajo**
+
+`PUT http://localhost:3000/jobs/logo/{id}`
 
 **- Eliminar un trabajo**
 

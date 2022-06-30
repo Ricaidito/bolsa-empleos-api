@@ -67,6 +67,31 @@ const updateJob = async (req, res) => {
     .catch(err => res.status(500).json({ error: err }));
 };
 
+// Update the logo of a job
+const updateLogo = async (req, res) => {
+  const id = req.params.jobId;
+  const jobToUpdate = await Job.findById(id);
+
+  if (!jobToUpdate)
+    return res.status(404).json({ error: `There's no job with ${id} id` });
+
+  const oldLogoPath = jobToUpdate.logo;
+
+  Job.updateOne(
+    { _id: id },
+    {
+      $set: {
+        logo: req.file
+          ? `http://${req.get("host")}/images/${req.file.filename}`
+          : null,
+      },
+    }
+  )
+    .then(() => fileHandler.deleteLogo(oldLogoPath))
+    .then(() => res.status(200).json({ message: `Updated ${id} logo` }))
+    .catch(err => res.status(500).json({ error: err }));
+};
+
 // Delete a job by ID
 const deleteJob = async (req, res) => {
   const id = req.params.jobId;
@@ -94,6 +119,7 @@ module.exports = {
   getJobById: getJobById,
   addJob: addJob,
   updateJob: updateJob,
+  updateLogo: updateLogo,
   deleteJob: deleteJob,
   deleteAllJobs: deleteAllJobs,
 };

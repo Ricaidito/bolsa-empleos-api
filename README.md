@@ -4,17 +4,18 @@
 
 Esta API fue creada para servir un SPA con capacidades para manejar bolsa de empleos y los diferentes tipos de usuarios que pueden entrar en la misma.
 
-Las tecnologías utilizadas fueron:
+Las tecnologías y dependencias utilizadas fueron:
 
 - Node
 - Express
 - MongoDB
+- Nodemon
+- Multer
+- body-parser
+- fs-extra
+- Morgan
 
 Nodemon también es utilizado para el hot-reload.
-
-## Rutas disponibles
-
-(WIP)
 
 ## Como ejecutar el servidor
 
@@ -29,3 +30,31 @@ Por último ejecute el siguiente comando para inicar el servidor.
 `npm start`
 
 Por defecto el servidor escucha a las peticiones en `http://localhost:3000/` a menos que se le especifique otro puerto.
+
+## Endpoints
+
+### Jobs
+
+**- Fetch de todos los trabajos disponibles**
+
+`GET http://localhost:3000/jobs`
+
+**- Fetch de un trabajo por id**
+
+`GET http://localhost:3000/jobs/{id}`
+
+**- Agregar un trabajo**
+
+`POST http://localhost:3000/jobs`
+
+**- Modificar un trabajo**
+
+`PUT http://localhost:3000/jobs/{id}`
+
+**- Eliminar un trabajo**
+
+`DELETE http://localhost:3000/jobs/{id}`
+
+**- Eliminar todos los trabajos**
+
+`DELETE http://localhost:3000/jobs/wipe/jobs`

@@ -42,8 +42,13 @@ const addJob = (req, res) => {
 };
 
 // Update a job by ID
-const updateJob = (req, res) => {
+const updateJob = async (req, res) => {
   const id = req.params.jobId;
+  const jobToUpdate = await Job.findById(id);
+
+  if (!jobToUpdate)
+    return res.status(404).json({ error: `There's no job with ${id} id` });
+
   Job.updateOne(
     { _id: id },
     {
@@ -57,9 +62,7 @@ const updateJob = (req, res) => {
       },
     }
   )
-    .then(result => {
-      res.status(200).json(result);
-    })
+    .then(() => res.status(200).json({ message: `Updated job ${id}` }))
     .catch(err => res.status(500).json({ error: err }));
 };
 
@@ -67,12 +70,13 @@ const updateJob = (req, res) => {
 const deleteJob = async (req, res) => {
   const id = req.params.jobId;
   const jobToDelete = await Job.findById(id);
-  if (!jobToDelete) {
-    return res.status(404).json({ error: `There's no job with ${id} ID` });
-  }
+
+  if (!jobToDelete)
+    return res.status(404).json({ error: `There's no job with ${id} id` });
+
   Job.deleteOne({ _id: id })
     .then(() => fileHandler.deleteLogo(jobToDelete.logo))
-    .then(() => res.status(200).json({ message: `Deteled job ${id}` }))
+    .then(() => res.status(200).json({ message: `Deleted job ${id}` }))
     .catch(err => res.status(500).json({ error: err }));
 };
 

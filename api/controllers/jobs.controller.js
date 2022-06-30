@@ -55,6 +55,7 @@ const updateJob = async (req, res) => {
       $set: {
         company: req.body.company,
         type: req.body.type,
+        jobUrl: req.body.jobUrl,
         position: req.body.position,
         location: req.body.location,
         category: req.body.category,

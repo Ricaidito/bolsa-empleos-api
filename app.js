@@ -14,7 +14,7 @@ const loginRoutes = require("./api/routes/login.routes");
 // Database connection
 mongoose.connect(process.env.MONGO_CONNECTION);
 
-// Middlewares
+// Middleware
 app.use(morgan("dev"));
 app.use(
   bodyParser.urlencoded({

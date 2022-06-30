@@ -35,6 +35,17 @@ Por defecto el servidor escucha a las peticiones en `http://localhost:3000/` a m
 
 ### Jobs
 
+```js
+company: { type: String, required: true }
+type: { type: String, required: true }
+logo: String // Optional
+jobUrl: String // Optional
+position: { type: String, required: true }
+location: { type: String, required: true }
+category: { type: String, required: true }
+contactEmail: { type: String, required: true }
+```
+
 **- Fetch de todos los trabajos disponibles**
 
 `GET http://localhost:3000/jobs`
@@ -45,7 +56,7 @@ Por defecto el servidor escucha a las peticiones en `http://localhost:3000/` a m
 
 **- Agregar un trabajo**
 
-`POST http://localhost:3000/jobs`
+`POST http://localhost:3000/jobs (solo se aceptan imágenes jpg o jpeg)`
 
 **- Modificar un trabajo**
 
@@ -53,7 +64,7 @@ Por defecto el servidor escucha a las peticiones en `http://localhost:3000/` a m
 
 **- Cambiar el logo de un trabajo**
 
-`PUT http://localhost:3000/jobs/logo/{id}`
+`PUT http://localhost:3000/jobs/logo/{id} (solo se aceptan imágenes jpg o jpeg)`
 
 **- Eliminar un trabajo**
 

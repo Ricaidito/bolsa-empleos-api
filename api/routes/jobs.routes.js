@@ -1,8 +1,9 @@
 const express = require("express");
-const router = express.Router();
 const multer = require("multer");
 const jobsController = require("../controllers/jobs.controller");
-const multerConfig = require("../config/multer-config");
+const multerConfig = require("../utils/multer-config");
+
+const router = express.Router();
 const uploadHandler = multer({
   storage: multerConfig.storageOptions,
   limits: multerConfig.imgSize,

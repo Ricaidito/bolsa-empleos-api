@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const corsConfig = require("./api/config/cors-config");
+const cors = require("cors");
 const errorHandlers = require("./api/utils/error-handler");
 
 const jobRoutes = require("./api/routes/jobs.routes");
@@ -24,8 +24,8 @@ app.use(
 app.use(bodyParser.json());
 app.use("/images", express.static("images"));
 
-// CORS configurations
-app.use(corsConfig);
+// CORS
+app.use(cors());
 
 // Routes
 app.use("/jobs", jobRoutes);

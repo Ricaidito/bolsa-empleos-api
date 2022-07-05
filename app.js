@@ -9,7 +9,6 @@ const cors = require("cors");
 const errorHandlers = require("./api/utils/error-handler");
 
 const jobRoutes = require("./api/routes/jobs.routes");
-const loginRoutes = require("./api/routes/login.routes");
 
 // Database connection
 mongoose.connect(process.env.MONGO_CONNECTION);
@@ -29,7 +28,6 @@ app.use(cors());
 
 // Routes
 app.use("/jobs", jobRoutes);
-app.use("/login", loginRoutes);
 
 // Error handling
 app.use(errorHandlers.notFoundHandler);

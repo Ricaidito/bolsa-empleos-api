@@ -17,28 +17,28 @@ contactEmail: String;
 
 **- Get all jobs**
 
-`GET apiUrl/jobs`
+`GET /jobs`
 
 **- Get a job by it's id**
 
-`GET apiUrl/jobs/{id}`
+`GET /jobs/{id}`
 
 **- Add a job**
 
-`POST apiUrl/jobs (only jpg or jpeg)`
+`POST /jobs (only jpg or jpeg)`
 
 **- Modify a job**
 
-`PUT apiUrl/jobs/{id}`
+`PUT /jobs/{id}`
 
 **- Update the logo of a job**
 
-`PUT apiUrl/jobs/logo/{id} (only jpg or jpeg)`
+`PUT /jobs/logo/{id} (only jpg or jpeg)`
 
 **- Delete a job**
 
-`DELETE apiUrl/jobs/{id}`
+`DELETE /jobs/{id}`
 
 **- Wipe all jobs**
 
-`DELETE apiUrl/jobs/wipe/jobs`
+`DELETE /jobs/wipe/jobs`
